@@ -1,0 +1,127 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "version": "1.0.0",
+        "title": "Projeto - Banco de Dados II",
+        "description": "Este projeto busca apresentar a implementação de um sistema para secretarias escolares.",
+        "contact": {
+            "name": "Swagger API Team"
+        },
+        "license": {
+            "name": "Arthur Wallace, Reidner Sousa"
+        }
+    },
+    "servers": [
+        {
+            "url": "/api"
+        }
+    ],
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/alunos": {
+            "get": {
+                "tags": [
+                    "Aluno"
+                ],
+                "description": "Retorna todos os alunos cadastrados",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Uma lista de alunos cadastrados.",
+                        "schema": {
+                            "type": "array"
+                        }
+                    }
+                }
+            }
+        },
+        "/aluno/{matricula}": {
+            "get": {
+                "tags": [
+                    "Aluno"
+                ],
+                "description": "Buscar aluno por matrícula",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "matricula",
+                        "in": "path",
+                        "description": "matrícula do aluno",
+                        "required": true,
+                        "type": "string",
+                        "minLength": 8,
+                        "maxLength": 8
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Buscar dados de um aluno pela matrícula",
+                        "schema": {
+                            "type": "array"
+                        }
+                    }
+                }
+            }
+        },
+        "/aluno": {
+            "post": {
+                "tags": [
+                    "Aluno"
+                ],
+                "description": "cadastrar novo aluno por matrícula",
+                "produces": [
+                    "application/json"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "matricula": {
+                                        "type": "string"
+                                    },
+                                    "nome": {
+                                        "type": "string"
+                                    },
+                                    "cpf": {
+                                        "type": "string"
+                                    },
+                                    "dataNascimento": {
+                                        "type": "string"
+                                    },
+                                    "dataIngresso": {
+                                        "type": "string"
+                                    },
+                                    "sexo": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Buscar dados de um aluno pela matrícula",
+                        "schema": {
+                            "type": "array"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
