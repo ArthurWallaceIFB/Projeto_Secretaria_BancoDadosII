@@ -1,14 +1,14 @@
 const { json } = require('body-parser');
-const AlunoService = require('../services/AlunoService');
+const CampusService = require('../services/CampusService');
 
 module.exports = {
     listarTodos: async (req, res) => {
         let returnObj = { result: [], error: '' };
         try {
-            let alunos = await AlunoService.listarTodos();
+            let campus = await CampusService.listarTodos();
 
-            alunos.map((aluno) => {
-                returnObj.result.push(aluno);
+            campus.map((campus) => {
+                returnObj.result.push(campus);
             })
         }
         catch (ex) {
@@ -16,15 +16,15 @@ module.exports = {
         }
         res.json(returnObj);
     },
-    buscarAluno: async (req, res) => {
+    buscarCampus: async (req, res) => {
         let returnObj = { result: {}, error: '' };
         try {
-            let matricula = req.params.matricula;
+            let idCampus = req.params.idCampus;
 
-            let aluno = await AlunoService.buscarAluno(matricula);
+            let campus = await CampusService.buscarCampus(idCampus);
 
-            if (aluno) {
-                returnObj.result = aluno;
+            if (campus) {
+                returnObj.result = campus;
             }
         }
         catch (ex) {
@@ -32,20 +32,18 @@ module.exports = {
         }
         res.json(returnObj);
     },
-    criarAluno: async (req, res) => {
+    criarCampus: async (req, res) => {
         let returnObj = { result: {}, error: '' };
         try {
-            let aluno = {
-                matricula: req.body.matricula,
+            let campus = {
                 nome: req.body.nome,
-                cpf: req.body.cpf,
-                dataNascimento: req.body.dataNascimento,
-                dataIngresso: new Date(),
-                sexo: req.body.sexo
+                cep: req.body.cep,
+                endereco: req.body.endereco,
+                cidade: req.body.cidade
             }
-            if (Object.values(aluno).every(value => value != null)) {
-                let novoAluno = await AlunoService.criarAluno(aluno);
-                returnObj.result = novoAluno;
+            if (campus && campus.nome) {
+                let novoCampus = await CampusService.criarCampus(campus);
+                returnObj.result = novoCampus;
             }
             else {
                 returnObj.error = "Campos inválidos!"
@@ -57,18 +55,18 @@ module.exports = {
 
         res.json(returnObj);
     },
-    atualizarAluno: async (req, res) => {
+    atualizarCampus: async (req, res) => {
         let returnObj = { result: {}, error: '' };
         try {
-            let aluno = {
-                matricula: req.params.matricula,
+            let campus = {
+                idCampus: req.params.idCampus,
                 nome: req.body.nome,
-                cpf: req.body.cpf,
-                dataNascimento: req.body.dataNascimento,
-                sexo: req.body.sexo
+                cep: req.body.cep,
+                endereco: req.body.endereco,
+                cidade: req.body.cidade
             }
-            if (Object.values(aluno).every(value => value != null)) {
-                let atualizacao = await AlunoService.atualizarAluno(aluno);
+            if (campus && campus.idCampus && campus.nome) {
+                let atualizacao = await CampusService.atualizarCampus(campus);
                 returnObj.result = atualizacao;
             }
             else {
@@ -81,13 +79,13 @@ module.exports = {
 
         res.json(returnObj);
     },
-    deletarAluno: async (req, res) => {
+    deletarCampus: async (req, res) => {
         let returnObj = { result: {}, error: '' };
         try {
-            let matricula = req.params.matricula;
+            let idCampus = req.params.idCampus;
 
-            if (matricula) {
-                let exclusao = await AlunoService.deletarAluno(matricula);
+            if (idCampus) {
+                let exclusao = await CampusService.deletarCampus(idCampus);
                 returnObj.result = exclusao;
             }
             else {

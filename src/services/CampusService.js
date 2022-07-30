@@ -4,7 +4,7 @@ module.exports = {
     listarTodos: () => {
         return new Promise((aceito, rejeitado) => {
 
-            let query = 'SELECT * FROM Aluno';
+            let query = 'SELECT * FROM Campus';
 
             db.query(query, (error, results) => {
                 if (error) { rejeitado(error); return; }
@@ -12,48 +12,47 @@ module.exports = {
             })
         })
     },
-    buscarAluno: (matricula) => {
+    buscarCampus: (idCampus) => {
         return new Promise((aceito, rejeitado) => {
 
-            let query = 'SELECT * FROM Aluno WHERE matricula = ?';
+            let query = 'SELECT * FROM Campus WHERE id_campus = ?';
 
-            db.query(query, [matricula], (error, results) => {
+            db.query(query, [idCampus], (error, results) => {
                 if (error) { rejeitado(error); return; }
                 aceito(results[0]);
             })
         })
     },
-    criarAluno: (aluno) => {
+    criarCampus: (Campus) => {
         return new Promise((aceito, rejeitado) => {
+            let query = `INSERT INTO Campus VALUES (0, ?, ?, ?, ?)`;
 
-            let query = `INSERT INTO Aluno VALUES (?, ?, ?, ?, ?, ?)`;
-
-            db.query(query, [aluno.matricula, aluno.nome, aluno.cpf, aluno.dataNascimento, aluno.dataIngresso, aluno.sexo], (error, results) => {
+            db.query(query, [Campus.nome, Campus.cep, Campus.endereco, Campus.cidade], (error, results) => {
                 if (error) { rejeitado(error); return; }
                 aceito('OK!');
             })
         })
     },
-    atualizarAluno: (aluno) => {
+    atualizarCampus: (Campus) => {
         return new Promise((aceito, rejeitado) => {
 
-            let query = `UPDATE Aluno 
-            SET nome = ?, cpf = ?, dataNascimento = ?, sexo = ?
-            WHERE matricula = ?`;
+            let query = `UPDATE Campus
+            SET nome = ?, CEP = ?, endereco = ?, cidade = ?
+            WHERE id_campus = ?`;
 
-            db.query(query, [aluno.nome, aluno.cpf, aluno.dataNascimento, aluno.sexo, aluno.matricula], (error, results) => {
+            db.query(query, [Campus.nome, Campus.cep, Campus.endereco, Campus.cidade, Campus.idCampus], (error, results) => {
                 console.log(results, 'results');
                 if (error) { console.log(error, "error"); rejeitado(error);}
                 aceito("OK!");
             })
         })
     },
-    deletarAluno: (matricula) => {
+    deletarCampus: (idCampus) => {
         return new Promise((aceito, rejeitado) => {
 
-            let query = 'DELETE FROM Aluno WHERE matricula = ?';
+            let query = 'DELETE FROM Campus WHERE id_campus = ?';
 
-            db.query(query, [matricula], (error, results) => {
+            db.query(query, [idCampus], (error, results) => {
                 if (error) { rejeitado(error); return; }
                 aceito("OK!");
             })

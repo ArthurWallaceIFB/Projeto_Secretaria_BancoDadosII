@@ -4,7 +4,7 @@ module.exports = {
     listarTodos: () => {
         return new Promise((aceito, rejeitado) => {
 
-            let query = 'SELECT * FROM Aluno';
+            let query = 'SELECT * FROM Curso';
 
             db.query(query, (error, results) => {
                 if (error) { rejeitado(error); return; }
@@ -12,48 +12,48 @@ module.exports = {
             })
         })
     },
-    buscarAluno: (matricula) => {
+    buscarCurso: (idCurso) => {
         return new Promise((aceito, rejeitado) => {
 
-            let query = 'SELECT * FROM Aluno WHERE matricula = ?';
+            let query = 'SELECT * FROM Curso WHERE id_curso = ?';
 
-            db.query(query, [matricula], (error, results) => {
+            db.query(query, [idCurso], (error, results) => {
                 if (error) { rejeitado(error); return; }
                 aceito(results[0]);
             })
         })
     },
-    criarAluno: (aluno) => {
+    criarCurso: (curso) => {
         return new Promise((aceito, rejeitado) => {
 
-            let query = `INSERT INTO Aluno VALUES (?, ?, ?, ?, ?, ?)`;
+            let query = `INSERT INTO Curso VALUES (0, ?, ?)`;
 
-            db.query(query, [aluno.matricula, aluno.nome, aluno.cpf, aluno.dataNascimento, aluno.dataIngresso, aluno.sexo], (error, results) => {
+            db.query(query, [curso.nome, curso.turno], (error, results) => {
                 if (error) { rejeitado(error); return; }
                 aceito('OK!');
             })
         })
     },
-    atualizarAluno: (aluno) => {
+    atualizarCurso: (curso) => {
         return new Promise((aceito, rejeitado) => {
 
-            let query = `UPDATE Aluno 
-            SET nome = ?, cpf = ?, dataNascimento = ?, sexo = ?
-            WHERE matricula = ?`;
+            let query = `UPDATE Curso 
+            SET nome = ?, turno = ?
+            WHERE id_curso = ?`;
 
-            db.query(query, [aluno.nome, aluno.cpf, aluno.dataNascimento, aluno.sexo, aluno.matricula], (error, results) => {
+            db.query(query, [curso.nome, curso.turno, curso.idCurso], (error, results) => {
                 console.log(results, 'results');
                 if (error) { console.log(error, "error"); rejeitado(error);}
                 aceito("OK!");
             })
         })
     },
-    deletarAluno: (matricula) => {
+    deletarCurso: (idCurso) => {
         return new Promise((aceito, rejeitado) => {
 
-            let query = 'DELETE FROM Aluno WHERE matricula = ?';
+            let query = 'DELETE FROM Curso WHERE id_curso = ?';
 
-            db.query(query, [matricula], (error, results) => {
+            db.query(query, [idCurso], (error, results) => {
                 if (error) { rejeitado(error); return; }
                 aceito("OK!");
             })

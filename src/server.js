@@ -19,5 +19,7 @@ server.use('/api', routes);
 const port = process.env.PORT;
 
 server.listen(port, () => {
-    console.log(`Servidor rodando em http://localhost:${port}`);
+    console.log(`-- Servidor rodando em http://localhost:${port}`);
+    console.log(`-- [DOC] Documentação rodando em http://localhost:${port}/api-docs`);
 });
+

@@ -1,14 +1,14 @@
 const { json } = require('body-parser');
-const AlunoService = require('../services/AlunoService');
+const CursoService = require('../services/CursoService');
 
 module.exports = {
     listarTodos: async (req, res) => {
         let returnObj = { result: [], error: '' };
         try {
-            let alunos = await AlunoService.listarTodos();
+            let cursos = await CursoService.listarTodos();
 
-            alunos.map((aluno) => {
-                returnObj.result.push(aluno);
+            cursos.map((curso) => {
+                returnObj.result.push(curso);
             })
         }
         catch (ex) {
@@ -16,15 +16,15 @@ module.exports = {
         }
         res.json(returnObj);
     },
-    buscarAluno: async (req, res) => {
+    buscarCurso: async (req, res) => {
         let returnObj = { result: {}, error: '' };
         try {
-            let matricula = req.params.matricula;
+            let idCurso = req.params.idCurso;
 
-            let aluno = await AlunoService.buscarAluno(matricula);
+            let curso = await CursoService.buscarCurso(idCurso);
 
-            if (aluno) {
-                returnObj.result = aluno;
+            if (curso) {
+                returnObj.result = curso;
             }
         }
         catch (ex) {
@@ -32,20 +32,16 @@ module.exports = {
         }
         res.json(returnObj);
     },
-    criarAluno: async (req, res) => {
+    criarCurso: async (req, res) => {
         let returnObj = { result: {}, error: '' };
         try {
-            let aluno = {
-                matricula: req.body.matricula,
+            let curso = {
                 nome: req.body.nome,
-                cpf: req.body.cpf,
-                dataNascimento: req.body.dataNascimento,
-                dataIngresso: new Date(),
-                sexo: req.body.sexo
+                turno: req.body.turno
             }
-            if (Object.values(aluno).every(value => value != null)) {
-                let novoAluno = await AlunoService.criarAluno(aluno);
-                returnObj.result = novoAluno;
+            if (curso && curso.nome) {
+                let novoCurso = await CursoService.criarCurso(curso);
+                returnObj.result = novoCurso;
             }
             else {
                 returnObj.error = "Campos inválidos!"
@@ -57,18 +53,16 @@ module.exports = {
 
         res.json(returnObj);
     },
-    atualizarAluno: async (req, res) => {
+    atualizarCurso: async (req, res) => {
         let returnObj = { result: {}, error: '' };
         try {
-            let aluno = {
-                matricula: req.params.matricula,
+            let curso = {
+                idCurso: req.params.idCurso,
                 nome: req.body.nome,
-                cpf: req.body.cpf,
-                dataNascimento: req.body.dataNascimento,
-                sexo: req.body.sexo
+                turno: req.body.turno
             }
-            if (Object.values(aluno).every(value => value != null)) {
-                let atualizacao = await AlunoService.atualizarAluno(aluno);
+            if (curso && curso.idCurso && curso.nome) {
+                let atualizacao = await CursoService.atualizarCurso(curso);
                 returnObj.result = atualizacao;
             }
             else {
@@ -81,13 +75,13 @@ module.exports = {
 
         res.json(returnObj);
     },
-    deletarAluno: async (req, res) => {
+    deletarCurso: async (req, res) => {
         let returnObj = { result: {}, error: '' };
         try {
-            let matricula = req.params.matricula;
+            let idCurso = req.params.idCurso;
 
-            if (matricula) {
-                let exclusao = await AlunoService.deletarAluno(matricula);
+            if (idCurso) {
+                let exclusao = await CursoService.deletarCurso(idCurso);
                 returnObj.result = exclusao;
             }
             else {

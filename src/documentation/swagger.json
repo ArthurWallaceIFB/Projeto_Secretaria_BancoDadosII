@@ -31,7 +31,7 @@
                 "tags": [
                     "Aluno"
                 ],
-                "description": "Retorna todos os alunos cadastrados",
+                "summary": "Retorna todos os alunos cadastrados",
                 "produces": [
                     "application/json"
                 ],
@@ -45,12 +45,58 @@
                 }
             }
         },
+        "/aluno": {
+            "post": {
+                "tags": [
+                    "Aluno"
+                ],
+                "summary": "cadastrar novo aluno por matrícula",
+                "produces": [
+                    "application/json"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "matricula": {
+                                        "type": "string"
+                                    },
+                                    "nome": {
+                                        "type": "string"
+                                    },
+                                    "cpf": {
+                                        "type": "string"
+                                    },
+                                    "dataNascimento": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "sexo": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Buscar dados de um aluno pela matrícula",
+                        "schema": {
+                            "type": "array"
+                        }
+                    }
+                }
+            }
+        },
         "/aluno/{matricula}": {
             "get": {
                 "tags": [
                     "Aluno"
                 ],
-                "description": "Buscar aluno por matrícula",
+                "summary": "Buscar aluno por matrícula",
                 "produces": [
                     "application/json"
                 ],
@@ -73,16 +119,25 @@
                         }
                     }
                 }
-            }
-        },
-        "/aluno": {
-            "post": {
+            },
+            "put": {
                 "tags": [
                     "Aluno"
                 ],
-                "description": "cadastrar novo aluno por matrícula",
+                "summary": "Atualizar dados de um aluno existente",
                 "produces": [
                     "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "matricula",
+                        "in": "path",
+                        "description": "matrícula do aluno",
+                        "required": true,
+                        "type": "string",
+                        "minLength": 8,
+                        "maxLength": 8
+                    }
                 ],
                 "requestBody": {
                     "content": {
@@ -90,9 +145,6 @@
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "matricula": {
-                                        "type": "string"
-                                    },
                                     "nome": {
                                         "type": "string"
                                     },
@@ -100,10 +152,8 @@
                                         "type": "string"
                                     },
                                     "dataNascimento": {
-                                        "type": "string"
-                                    },
-                                    "dataIngresso": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "format": "date"
                                     },
                                     "sexo": {
                                         "type": "string"
@@ -116,6 +166,364 @@
                 "responses": {
                     "200": {
                         "description": "Buscar dados de um aluno pela matrícula",
+                        "schema": {
+                            "type": "array"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Aluno"
+                ],
+                "summary": "Deletar aluno por matrícula",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "matricula",
+                        "in": "path",
+                        "description": "matrícula do aluno",
+                        "required": true,
+                        "type": "string",
+                        "minLength": 8,
+                        "maxLength": 8
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deletar dados de um aluno pela matrícula",
+                        "schema": {
+                            "type": "array"
+                        }
+                    }
+                }
+            }
+        },
+        "/listarCampus": {
+            "get": {
+                "tags": [
+                    "Campus"
+                ],
+                "summary": "Retorna todos os campus cadastrados",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Uma lista de campus cadastrados.",
+                        "schema": {
+                            "type": "array"
+                        }
+                    }
+                }
+            }
+        },
+        "/campus": {
+            "post": {
+                "tags": [
+                    "Campus"
+                ],
+                "summary": "cadastrar novo campus",
+                "produces": [
+                    "application/json"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nome": {
+                                        "type": "string",
+                                        "required": true
+                                    },
+                                    "cep": {
+                                        "type": "string",
+                                        "minLength": 8,
+                                        "maxLength": 8
+                                    },
+                                    "endereco": {
+                                        "type": "string"
+                                    },
+                                    "cidade": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Buscar dados de um campus por id",
+                        "schema": {
+                            "type": "array"
+                        }
+                    }
+                }
+            }
+        },
+        "/campus/{idCampus}": {
+            "get": {
+                "tags": [
+                    "Campus"
+                ],
+                "summary": "Buscar campus por id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "idCampus",
+                        "in": "path",
+                        "description": "id do Campus",
+                        "required": true,
+                        "type": "string",
+                        "minLength": 8,
+                        "maxLength": 8
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Buscar dados de um campus pelo id",
+                        "schema": {
+                            "type": "array"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Campus"
+                ],
+                "summary": "Atualizar dados de um campus existente",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "idCampus",
+                        "in": "path",
+                        "description": "id do Campus",
+                        "required": true,
+                        "type": "string",
+                        "minLength": 8,
+                        "maxLength": 8
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nome": {
+                                        "type": "string",
+                                        "required": true
+                                    },
+                                    "cep": {
+                                        "type": "string",
+                                        "minLength": 8,
+                                        "maxLength": 8
+                                    },
+                                    "endereco": {
+                                        "type": "string"
+                                    },
+                                    "cidade": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Confirmação de atualização",
+                        "schema": {
+                            "type": "array"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Campus"
+                ],
+                "summary": "Deletar campus por id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "idCampus",
+                        "in": "path",
+                        "description": "id do Campus",
+                        "required": true,
+                        "type": "string",
+                        "minLength": 8,
+                        "maxLength": 8
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deletar dados de um campus pelo id",
+                        "schema": {
+                            "type": "array"
+                        }
+                    }
+                }
+            }
+        },
+        "/cursos": {
+            "get": {
+                "tags": [
+                    "Curso"
+                ],
+                "summary": "Retorna todos os cursos cadastrados",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Uma lista de cursos cadastrados.",
+                        "schema": {
+                            "type": "array"
+                        }
+                    }
+                }
+            }
+        },
+        "/curso": {
+            "post": {
+                "tags": [
+                    "Curso"
+                ],
+                "summary": "cadastrar novo curso",
+                "produces": [
+                    "application/json"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nome": {
+                                        "type": "string",
+                                        "required": true
+                                    },
+                                    "turno": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Buscar dados de um curso por id",
+                        "schema": {
+                            "type": "array"
+                        }
+                    }
+                }
+            }
+        },
+        "/curso/{idCurso}": {
+            "get": {
+                "tags": [
+                    "Curso"
+                ],
+                "summary": "Buscar curso por id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "idCurso",
+                        "in": "path",
+                        "description": "id do Curso",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Buscar dados de um curso pelo id",
+                        "schema": {
+                            "type": "array"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Curso"
+                ],
+                "summary": "Atualizar dados de um curso existente",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "idCurso",
+                        "in": "path",
+                        "description": "id do Curso",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nome": {
+                                        "type": "string",
+                                        "required": true
+                                    },
+                                    "turno": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Buscar dados de um curso pelo id",
+                        "schema": {
+                            "type": "array"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Curso"
+                ],
+                "summary": "Deletar curso por id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "idCurso",
+                        "in": "path",
+                        "description": "id do Curso",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deletar dados de um curso pelo id",
                         "schema": {
                             "type": "array"
                         }
