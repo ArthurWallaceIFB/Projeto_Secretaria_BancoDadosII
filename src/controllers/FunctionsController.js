@@ -1,11 +1,13 @@
 const { json } = require('body-parser');
-const ViewsService = require('../services/ViewsService');
+const FunctionsService = require('../services/FunctionsService');
 
 module.exports = {
-    ultimos_alunos_matriculados: async (req, res) => {
+    qnt_alunos_disciplina: async (req, res) => {
         let returnObj = { result: [], error: '' };
         try {
-            let alunos = await ViewsService.ultimos_alunos_matriculados();
+            let id_disciplina =req.query.idDisciplina;
+
+            let alunos = await FunctionsService.qnt_alunos_disciplina(id_disciplina);
 
             alunos.map((aluno) => {
                 returnObj.result.push(aluno);

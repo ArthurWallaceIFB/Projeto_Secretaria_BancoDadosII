@@ -1,11 +1,11 @@
 const db = require('../db');
 
 module.exports = {
-    ultimos_alunos_matriculados: () => {
+    qnt_alunos_disciplina: (id_disciplina) => {
         return new Promise((aceito, rejeitado) => {
-            let query = 'select * from View_ultimas_10_matriculas;';
+            let query = 'select fn_VerTotalAlunosDisciplinas(?) as TotalAlunos;';
 
-            db.query(query, (error, results) => {
+            db.query(query, [id_disciplina], (error, results) => {
                 if (error) { rejeitado(error); return; }
                 aceito(results)
             })

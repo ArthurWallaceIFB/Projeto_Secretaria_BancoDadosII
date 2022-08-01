@@ -9,6 +9,9 @@ const ProfessorController = require('./controllers/ProfessorController');
 const Disciplina_CursoController = require('./controllers/Disciplina_CursoController');
 const MatriculaController = require('./controllers/MatriculaController');
 const ViewsController = require('./controllers/ViewsController');
+const FunctionsController = require('./controllers/FunctionsController');
+
+
 
 //* ALUNOS
 router.get('/alunos', AlunoController.listarTodos);
@@ -65,5 +68,8 @@ router.post('/matricula/matricular', MatriculaController.matricular_aluno);
 router.post('/matricula/trancar', MatriculaController.trancar_matricula);
 router.post('/matricula/destrancar', MatriculaController.destrancar_matricula);
 
+
+//* FUNCTIONS
+router.get('/functions/qnt_alunos_disciplina', FunctionsController.qnt_alunos_disciplina);
 
 module.exports = router;

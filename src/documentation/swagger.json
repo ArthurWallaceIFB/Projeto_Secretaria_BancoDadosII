@@ -1121,6 +1121,34 @@
                     }
                 }
             }
+        },
+        "/functions/qnt_alunos_disciplina": {
+            "get": {
+                "tags": [
+                    "Functions"
+                ],
+                "summary": "Quantidade de alunos por disciplina.",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "idDisciplina",
+                        "in": "query",
+                        "description": "id da Disciplina",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Soma da quantidade de alunos.",
+                        "schema": {
+                            "type": "array"
+                        }
+                    }
+                }
+            }
         }
     }
 }
