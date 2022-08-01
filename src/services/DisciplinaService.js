@@ -4,7 +4,7 @@ module.exports = {
     listarTodos: () => {
         return new Promise((aceito, rejeitado) => {
 
-            let query = 'SELECT * FROM Campus';
+            let query = 'SELECT * FROM Disciplina';
 
             db.query(query, (error, results) => {
                 if (error) { rejeitado(error); return; }
@@ -12,46 +12,47 @@ module.exports = {
             })
         })
     },
-    buscarCampus: (idCampus) => {
+    buscarDisciplina: (idDisciplina) => {
         return new Promise((aceito, rejeitado) => {
 
-            let query = 'SELECT * FROM Campus WHERE id_campus = ?';
+            let query = 'SELECT * FROM Disciplina WHERE id_disciplina = ?';
 
-            db.query(query, [idCampus], (error, results) => {
+            db.query(query, [idDisciplina], (error, results) => {
                 if (error) { rejeitado(error); return; }
                 aceito(results[0]);
             })
         })
     },
-    criarCampus: (Campus) => {
+    criarDisciplina: (disciplina) => {
         return new Promise((aceito, rejeitado) => {
-            let query = `INSERT INTO Campus VALUES (0, ?, ?, ?, ?)`;
 
-            db.query(query, [Campus.nome, Campus.cep, Campus.endereco, Campus.cidade], (error, results) => {
+            let query = `INSERT INTO Disciplina VALUES (0, ?, ?, ?)`;
+
+            db.query(query, [disciplina.nome, disciplina.carga_horaria, disciplina.id_professor], (error, results) => {
                 if (error) { rejeitado(error); return; }
                 aceito('OK!');
             })
         })
     },
-    atualizarCampus: (Campus) => {
+    atualizarDisciplina: (disciplina) => {
         return new Promise((aceito, rejeitado) => {
 
-            let query = `UPDATE Campus
-            SET nome = ?, CEP = ?, endereco = ?, cidade = ?
-            WHERE id_campus = ?`;
+            let query = `UPDATE Disciplina 
+            SET nome = ?, carga_horaria = ?, id_professor = ?
+            WHERE id_disciplina = ?`;
 
-            db.query(query, [Campus.nome, Campus.cep, Campus.endereco, Campus.cidade, Campus.idCampus], (error, results) => {
+            db.query(query, [disciplina.nome, disciplina.carga_horaria, disciplina.id_professor, disciplina.idDisciplina], (error, results) => {
                 if (error) {rejeitado(error); return;}
                 aceito("OK!");
             })
         })
     },
-    deletarCampus: (idCampus) => {
+    deletarDisciplina: (idDisciplina) => {
         return new Promise((aceito, rejeitado) => {
 
-            let query = 'DELETE FROM Campus WHERE id_campus = ?';
+            let query = 'DELETE FROM Disciplina WHERE id_disciplina = ?';
 
-            db.query(query, [idCampus], (error, results) => {
+            db.query(query, [idDisciplina], (error, results) => {
                 if (error) { rejeitado(error); return; }
                 aceito("OK!");
             })

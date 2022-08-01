@@ -42,8 +42,7 @@ module.exports = {
             WHERE id_curso = ?`;
 
             db.query(query, [curso.nome, curso.turno, curso.idCurso], (error, results) => {
-                console.log(results, 'results');
-                if (error) { console.log(error, "error"); rejeitado(error);}
+                if (error) {rejeitado(error); return;}
                 aceito("OK!");
             })
         })

@@ -60,9 +60,6 @@
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "matricula": {
-                                        "type": "string"
-                                    },
                                     "nome": {
                                         "type": "string"
                                     },
@@ -91,20 +88,20 @@
                 }
             }
         },
-        "/aluno/{matricula}": {
+        "/aluno/{idAluno}": {
             "get": {
                 "tags": [
                     "Aluno"
                 ],
-                "summary": "Buscar aluno por matrícula",
+                "summary": "Buscar aluno por id",
                 "produces": [
                     "application/json"
                 ],
                 "parameters": [
                     {
-                        "name": "matricula",
+                        "name": "idAluno",
                         "in": "path",
-                        "description": "matrícula do aluno",
+                        "description": "Id do aluno",
                         "required": true,
                         "type": "string",
                         "minLength": 8,
@@ -113,7 +110,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Buscar dados de um aluno pela matrícula",
+                        "description": "Dados encontrados do aluno",
                         "schema": {
                             "type": "array"
                         }
@@ -130,13 +127,11 @@
                 ],
                 "parameters": [
                     {
-                        "name": "matricula",
+                        "name": "idAluno",
                         "in": "path",
-                        "description": "matrícula do aluno",
+                        "description": "Id do aluno",
                         "required": true,
-                        "type": "string",
-                        "minLength": 8,
-                        "maxLength": 8
+                        "type": "integer"
                     }
                 ],
                 "requestBody": {
@@ -176,24 +171,22 @@
                 "tags": [
                     "Aluno"
                 ],
-                "summary": "Deletar aluno por matrícula",
+                "summary": "Deletar aluno por id",
                 "produces": [
                     "application/json"
                 ],
                 "parameters": [
                     {
-                        "name": "matricula",
+                        "name": "idAluno",
                         "in": "path",
-                        "description": "matrícula do aluno",
+                        "description": "Id do aluno",
                         "required": true,
-                        "type": "string",
-                        "minLength": 8,
-                        "maxLength": 8
+                        "type": "integer"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Deletar dados de um aluno pela matrícula",
+                        "description": "Retorno de sucesso da operação.",
                         "schema": {
                             "type": "array"
                         }
@@ -524,6 +517,604 @@
                 "responses": {
                     "200": {
                         "description": "Deletar dados de um curso pelo id",
+                        "schema": {
+                            "type": "array"
+                        }
+                    }
+                }
+            }
+        },
+        "/disciplinas": {
+            "get": {
+                "tags": [
+                    "Disciplina"
+                ],
+                "summary": "Retorna todos as disciplinas cadastrados",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Uma lista de disciplinas cadastrados.",
+                        "schema": {
+                            "type": "array"
+                        }
+                    }
+                }
+            }
+        },
+        "/disciplina": {
+            "post": {
+                "tags": [
+                    "Disciplina"
+                ],
+                "summary": "cadastrar nova disciplina",
+                "produces": [
+                    "application/json"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nome": {
+                                        "type": "string",
+                                        "required": true
+                                    },
+                                    "carga_horaria": {
+                                        "type": "integer"
+                                    },
+                                    "id_professor": {
+                                        "type": "integer"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Buscar dados de uma disciplina por id",
+                        "schema": {
+                            "type": "array"
+                        }
+                    }
+                }
+            }
+        },
+        "/disciplina/{idDisciplina}": {
+            "get": {
+                "tags": [
+                    "Disciplina"
+                ],
+                "summary": "Buscar disciplina por id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "idDisciplina",
+                        "in": "path",
+                        "description": "id da Disciplina",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Buscar dados de uma disciplina pelo id",
+                        "schema": {
+                            "type": "array"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Disciplina"
+                ],
+                "summary": "Atualizar dados de uma disciplina existente",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "idDisciplina",
+                        "in": "path",
+                        "description": "id da Disciplina",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nome": {
+                                        "type": "string",
+                                        "required": true
+                                    },
+                                    "carga_horaria": {
+                                        "type": "integer"
+                                    },
+                                    "id_professor": {
+                                        "type": "integer"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Buscar dados de uma disciplina pelo id",
+                        "schema": {
+                            "type": "array"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Disciplina"
+                ],
+                "summary": "Deletar disciplina por id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "idDisciplina",
+                        "in": "path",
+                        "description": "id da Disciplina",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deletar dados de uma disciplina pelo id",
+                        "schema": {
+                            "type": "array"
+                        }
+                    }
+                }
+            }
+        },
+        "/professores": {
+            "get": {
+                "tags": [
+                    "Professor"
+                ],
+                "summary": "Retorna todos os professores cadastrados",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Uma lista de professores cadastrados.",
+                        "schema": {
+                            "type": "array"
+                        }
+                    }
+                }
+            }
+        },
+        "/professor": {
+            "post": {
+                "tags": [
+                    "Professor"
+                ],
+                "summary": "cadastrar nova professor",
+                "produces": [
+                    "application/json"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nome": {
+                                        "type": "string"
+                                    },
+                                    "cpf": {
+                                        "type": "string"
+                                    },
+                                    "dataNascimento": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "sexo": {
+                                        "type": "string"
+                                    }
+                                }
+                                
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Buscar dados de um professor por id",
+                        "schema": {
+                            "type": "array"
+                        }
+                    }
+                }
+            }
+        },
+        "/professor/{idProfessor}": {
+            "get": {
+                "tags": [
+                    "Professor"
+                ],
+                "summary": "Buscar professor por id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "idProfessor",
+                        "in": "path",
+                        "description": "id da Professor",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Buscar dados de um professor pelo id",
+                        "schema": {
+                            "type": "array"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Professor"
+                ],
+                "summary": "Atualizar dados de uma professor existente",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "idProfessor",
+                        "in": "path",
+                        "description": "id do Professor",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nome": {
+                                        "type": "string"
+                                    },
+                                    "cpf": {
+                                        "type": "string"
+                                    },
+                                    "dataNascimento": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "sexo": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Buscar dados de um professor pelo id",
+                        "schema": {
+                            "type": "array"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Professor"
+                ],
+                "summary": "Deletar professor por id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "idProfessor",
+                        "in": "path",
+                        "description": "id do Professor",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deletar dados de um professor pelo id",
+                        "schema": {
+                            "type": "array"
+                        }
+                    }
+                }
+            }
+        },
+        "/disciplinaCurso/buscarDisciplinas": {
+            "get": {
+                "tags": [
+                    "Disciplina/Curso", "Curso"
+                ],
+                "summary": "Buscar disciplinas do curso",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "idCurso",
+                        "in": "query",
+                        "description": "id do Curso",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de disciplinas vinculadas ao curso",
+                        "schema": {
+                            "type": "array"
+                        }
+                    }
+                }
+            }
+        },
+        "/disciplinaCurso/buscarCursos": {
+            "get": {
+                "tags": [
+                    "Disciplina/Curso", "Disciplina"
+                ],
+                "summary": "Buscar cursos que possuem a disciplina",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "idDisciplina",
+                        "in": "query",
+                        "description": "id da Disciplina",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de cursos vinculados à disciplina.",
+                        "schema": {
+                            "type": "array"
+                        }
+                    }
+                }
+            }
+        },
+        "/disciplinaCurso/vincular": {
+            "post": {
+                "tags": [
+                    "Disciplina/Curso", "Disciplina", "Curso"
+                ],
+                "summary": "Vincular uma disciplina a um curso",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "idDisciplina",
+                        "in": "query",
+                        "description": "id da Disciplina",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "idCurso",
+                        "in": "query",
+                        "description": "id do Curso",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorno de sucesso da operação.",
+                        "schema": {
+                            "type": "array"
+                        }
+                    }
+                }
+            }
+        },
+        "/disciplinaCurso/desvincular": {
+            "post": {
+                "tags": [
+                    "Disciplina/Curso", "Disciplina", "Curso"
+                ],
+                "summary": "Desvincular uma disciplina a um curso",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "idDisciplina",
+                        "in": "query",
+                        "description": "id da Disciplina",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "idCurso",
+                        "in": "query",
+                        "description": "id do Curso",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorno de sucesso da operação.",
+                        "schema": {
+                            "type": "array"
+                        }
+                    }
+                }
+            }
+        },
+        "/matricula/buscar": {
+            "get": {
+                "tags": [
+                    "Matricula"
+                ],
+                "summary": "buscar matrículas de um aluno",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "idAluno",
+                        "in": "query",
+                        "description": "id do aluno",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de matrículas.",
+                        "schema": {
+                            "type": "array"
+                        }
+                    }
+                }
+            }
+        },
+        "/matricula/matricular": {
+            "post": {
+                "tags": [
+                    "Matricula"
+                ],
+                "summary": "Matricular um aluno em uma disciplina",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "idAluno",
+                        "in": "query",
+                        "description": "id do aluno",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "idDisciplina",
+                        "in": "query",
+                        "description": "id da Disciplina",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "semestreAtual",
+                        "in": "query",
+                        "description": "semestre atual",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorno de sucesso da operação.",
+                        "schema": {
+                            "type": "array"
+                        }
+                    }
+                }
+            }
+        },
+        "/matricula/trancar": {
+            "post": {
+                "tags": [
+                    "Matricula"
+                ],
+                "summary": "Trancar uma disciplina",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "idMatricula",
+                        "in": "query",
+                        "description": "id da matricula",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorno de sucesso da operação.",
+                        "schema": {
+                            "type": "array"
+                        }
+                    }
+                }
+            }
+        },
+        "/matricula/destrancar": {
+            "post": {
+                "tags": [
+                    "Matricula"
+                ],
+                "summary": "Destrancar a matrícula em uma disciplina.",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "idMatricula",
+                        "in": "query",
+                        "description": "id da matricula",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorno de sucesso da operação.",
+                        "schema": {
+                            "type": "array"
+                        }
+                    }
+                }
+            }
+        },
+        "/views/ultimas_matriculas": {
+            "get": {
+                "tags": [
+                    "Views"
+                ],
+                "summary": "Lista das 10 últimas matrículas realizadas.",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de matrículas encontradas.",
                         "schema": {
                             "type": "array"
                         }
